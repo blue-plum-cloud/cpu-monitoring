@@ -1,4 +1,4 @@
-package main
+package perf
 
 /*
 #cgo CFLAGS: -I.

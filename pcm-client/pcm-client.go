@@ -2,11 +2,12 @@ package pcm
 
 import (
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"sync"
 	"time"
+
+	log "github.com/sirupsen/logrus" // logrus package
 )
 
 /*
@@ -31,7 +32,7 @@ func MakePCMRequest(url string, filename string, wg *sync.WaitGroup, readyChan c
 	client := &http.Client{Timeout: 1 * time.Second}
 
 	// Send the first request for metrics
-	body, err := handleClientReq(url, req, client)
+	body, err := HandleClientReq(url, req, client)
 	if err != nil {
 		readyChan <- struct{}{}
 		return
@@ -43,14 +44,14 @@ func MakePCMRequest(url string, filename string, wg *sync.WaitGroup, readyChan c
 	// wait for ROI to finish
 	<-readyChan
 	// Send the second request
-	body, err = handleClientReq(url, req, client)
+	body, err = HandleClientReq(url, req, client)
 	if err != nil {
 		return
 	}
 	text += string(body)
 
 	//write to string
-	writeToFile(filename, text)
+	WriteToFile(filename, text)
 
 }
 

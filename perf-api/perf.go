@@ -17,6 +17,14 @@ import (
 
 func UNUSED(x ...interface{}) {}
 
+type PerfType C.uint64_t
+
+const (
+	PERF_TYPE_HARDWARE PerfType = C.PERF_TYPE_HARDWARE
+	PERF_TYPE_HW_CACHE PerfType = C.PERF_TYPE_HW_CACHE
+	PERF_TYPE_RAW      PerfType = C.PERF_TYPE_RAW
+)
+
 // PerfEventConfig holds the configuration for performance events
 type PerfEventConfig struct {
 	pe      C.struct_perf_event_attr

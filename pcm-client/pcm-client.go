@@ -13,7 +13,7 @@ import (
 asynchronous function that makes a HTTP request to the intel PCM
 sensor server to retrieve sensor data.
 */
-func makePCMRequest(url string, filename string, wg *sync.WaitGroup, readyChan chan struct{}) {
+func MakePCMRequest(url string, filename string, wg *sync.WaitGroup, readyChan chan struct{}) {
 	text := ""
 
 	defer wg.Done()
@@ -54,7 +54,7 @@ func makePCMRequest(url string, filename string, wg *sync.WaitGroup, readyChan c
 
 }
 
-func handleClientReq(url string, req *http.Request, client *http.Client) (res string, err error) {
+func HandleClientReq(url string, req *http.Request, client *http.Client) (res string, err error) {
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Error("Error sending HTTP request.", err)
@@ -71,7 +71,7 @@ func handleClientReq(url string, req *http.Request, client *http.Client) (res st
 	return string(body), nil
 }
 
-func writeToFile(filename string, text string) {
+func WriteToFile(filename string, text string) {
 	//write to string
 	f, err := os.Create(filename)
 	if err != nil {
